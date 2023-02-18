@@ -1,7 +1,7 @@
 """
 Open and close time calculations
 for ACP-sanctioned brevets
-following rules described at https://rusa.org/octime_alg.html
+following rules described at https://rusa.org/octime_acp.html
 and https://rusa.org/pages/rulesForRiders
 """
 import arrow
