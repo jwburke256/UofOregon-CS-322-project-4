@@ -14,9 +14,9 @@ import arrow
 #
 
 
-#end time dict
-endTimes = {200km:13.5, 300km:20, 400km:27, 600km:40, 1000km:75, 1200km:90, 1400km:116.4, 2200km:220}
-
+#speed dicts
+maxSpeed = {200km:34, 400km:32, 600km:30, 1000km:28, 1300km:26}
+minSpeed = {60km:20, 600km:15, 1000km:11.428, 1300km:13.33}
 
 
 def open_time(control_dist_km, brevet_dist_km, brevet_start_time):
@@ -31,10 +31,26 @@ def open_time(control_dist_km, brevet_dist_km, brevet_start_time):
        An arrow object indicating the control open time.
        This will be in the same time zone as the brevet start time.
     """
+    hours = 0
+    mins = 0
     if control_dist_km == 0:
         return brevet_start_time
-    return arrow.now()
+    for dist, time in maxEndTimes.values():
+        if control_dist_km < dist:
+            return_time = control_dist_km / time
+            hours = int(str(return_time).split('.')[0]) # calculates hours by splitting fraction
+            mins = int(float(str(return_time).split('.')[1]) * 60) # cacluates mins by multiplying float by 60
+                                                                   # and then truncating
+            # account for late start time
+            if (dist==60km):
+                hours+=1
+        else:
+            int_time = 
+            return arrow.now # fix this with new hours/mins
 
+
+
+    return arrow.now()
 
 def close_time(control_dist_km, brevet_dist_km, brevet_start_time):
     """
