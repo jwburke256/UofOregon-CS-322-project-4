@@ -30,4 +30,32 @@ def test_brevet1():
             }
     check_brevets(checkpoints, dist, start_time)
 
+def test_brevet2():
+    start_time = arrow.get("2023-02-22 00:00", "YYYY-MM-DD HH:mm")
+    dist = 200
+    checkpoints = {
+        0: (start_time, start_time.shift(hours=1)),
+        60: (start_time.shift(hours=1, minutes=46), start_time.shift(hours=4)),
+        120: (start_time.shift(hours=3, minutes=32), start_time.shift(hours=8)),
+        175: (start_time.shift(hours=5, minutes=9), start_time.shift(hours=11, minutes=40)),
+        205: (start_time.shift(hours=5, minutes=53), start_time.shift(hours=13.5)), 
+            }
+    check_brevets(checkpoints, dist, start_time)
+
+def test_brevet3():
+    start_time = arrow.get("2023-02-22 00:00", "YYYY-MM-DD HH:mm")
+    dist = 400
+    checkpoints = {
+        0: (start_time, start_time.shift(hours=1)),
+        50: (start_time.shift(hours=1, minutes=28), start_time.shift(hours=3.5)),
+        100: (start_time.shift(hours=2, minutes=56), start_time.shift(hours=6, minutes=40)),
+        150: (start_time.shift(hours=4, minutes=25), start_time.shift(hours=10)),
+        200: (start_time.shift(hours=5, minutes=53), start_time.shift(hours=13, minutes=20)),
+        250: (start_time.shift(hours=7, minutes=27), start_time.shift(hours=16, minutes=40)),
+        300: (start_time.shift(hours=9, minutes=1), start_time.shift(hours=20)),
+        350: (start_time.shift(hours=10, minutes=34), start_time.shift(hours=23, minutes=20)),
+        400: (start_time.shift(hours=12, minutes=8), start_time.shift(days=1, hours=3)),
+            }
+    check_brevets(checkpoints, dist, start_time)
+
 
