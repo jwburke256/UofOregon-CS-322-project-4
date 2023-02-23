@@ -98,6 +98,19 @@ def close_time(control_dist_km, brevet_dist_km, brevet_start_time):
             brevet_start_time = brevet_start_time.shift(minutes = mins)
             control_dist_km -= dist
         else:
+            # account for control points under 60km
+            if (original_cntrl_dist <= 60):
+                return_time = control_dist_km / 20
+                hours = return_time
+                hours = int(hours)
+                mins = return_time - hours            
+                mins = mins * 60
+                mins = round(mins)
+                brevet_start_time = brevet_start_time.shift(hours = hours)
+                brevet_start_time = brevet_start_time.shift(minutes = mins)
+                brevet_start_time = brevet_start_time.shift(hours=+1)
+                return brevet_start_time
+            # control points above 60km's
             return_time = control_dist_km / time
             hours = return_time
             hours = int(hours)
@@ -106,8 +119,5 @@ def close_time(control_dist_km, brevet_dist_km, brevet_start_time):
             mins = round(mins)
             brevet_start_time = brevet_start_time.shift(hours = hours)
             brevet_start_time = brevet_start_time.shift(minutes = mins)
-            # account for late start time
-            if (original_cntrl_dist <= 60):
-                brevet_start_time = brevet_start_time.shift(hours=+1)
             return brevet_start_time
             

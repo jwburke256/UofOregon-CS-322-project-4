@@ -24,6 +24,7 @@ def test_brevet1():
     checkpoints = {
         0: (start_time, start_time.shift(hours=1)),
         50: (start_time.shift(hours=1, minutes=28), start_time.shift(hours=3.5)),
+        100: (start_time.shift(hours=2, minutes=56), start_time.shift(hours=6, minutes=40)),
         150: (start_time.shift(hours=4, minutes=25), start_time.shift(hours=10)),
         200: (start_time.shift(hours=5, minutes=53), start_time.shift(hours=13.5)), 
             }
