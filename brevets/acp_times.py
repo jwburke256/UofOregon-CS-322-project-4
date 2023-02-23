@@ -37,18 +37,24 @@ def open_time(control_dist_km, brevet_dist_km, brevet_start_time):
     prev_dist = 0
     if control_dist_km == 0:
         return brevet_start_time
-    for dist, time in maxSpeed.values():
+    for dist, time in maxSpeed.items():
         if control_dist_km < dist:
             return_time = (control_dist_km - prev_dist) / time
-            hours = int(str(return_time).split('.')[0]) # calculates hours by splitting fraction
-            mins = int(float(str(return_time).split('.')[1]) * 60) # cacluates mins by multiplying float by 60
+            hours += int(return_time)
+            mins_tmp = return_time - int(return_time)
+            mins += int(mins_tmp * 60)
+            #hours = int(str(return_time).split('.')[0]) # calculates hours by splitting fraction
+            #mins = int(float(str(return_time).split('.')[1]) * 60) # cacluates mins by multiplying float by 60
                                                                    # and then truncating
             brevet_start_time.shift(hours=hours, minutes=mins)
             return brevet_start_time
         else:
-            return_time =  (control_dist_km - prev_dist) / time
-            hours += int(str(return_time).split('.')[0]) # calculates hours by splitting fraction
-            mins += int(float(str(return_time).split('.')[1]) * 60) # cacluates mins by multiplying float by 60
+            return_time = (control_dist_km - prev_dist) / time
+            hours += int(return_time)
+            mins_tmp = return_time - int(return_time)
+            mins += int(mins_tmp * 60)
+            #hours += int(str(return_time).split('.')[0]) # calculates hours by splitting fraction
+            #mins += int(float(str(return_time).split('.')[1]) * 60) # cacluates mins by multiplying float by 60
                                                                    # and then truncating
             brevet_start_time.shift(hours=hours, minutes=mins)
             prev_dist = dist #update prev_dist for next dist calc
@@ -77,7 +83,7 @@ def close_time(control_dist_km, brevet_dist_km, brevet_start_time):
         hours = int(str(return_time).split('.')[0]) # calculates hours by splitting fraction
         mins = int(float(str(return_time).split('.')[1]) * 60) # cacluates mins by multiplying float by 60
         return brevet_start_time.shift(hours = hours, minutes=mins) 
-    for dist, time in minSpeed.values():
+    for dist, time in minSpeed.items():
         if control_dist_km < dist:
             return_time = (control_dist_km - prev_dist) / time
             hours = int(str(return_time).split('.')[0]) # calculates hours by splitting fraction
@@ -85,7 +91,7 @@ def close_time(control_dist_km, brevet_dist_km, brevet_start_time):
                                                                    # and then truncating
             brevet_start_time.shift(hours = hours, minutes=mins)
             # account for late start time
-            if (dist==60km):
+            if (control_dist_km < 60):
                 brevet_start_time.shift(hours=+1)
             return brevet_start_time
         else:

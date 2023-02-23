@@ -12,7 +12,7 @@ logging.basicConfig(format='%(levelname)s:%(message)s',
                     level=logging.WARNING)
 log = logging.getLogger(__name__)
 
-def check_brevets(checkpoint_dict):
+def check_brevets(checkpoint_dict, dist, start_time):
     for km, time_tuple in checkpoint_dict.items():
         checkpoint_open, checkpoint_close = time_tuple
         assert open_time(km, dist, start_time) == checkpoint_open
@@ -27,6 +27,6 @@ def test_brevet1():
         150: (start_time.shift(hours=4, minutes=25), start_time.shift(hours=10)),
         200: (start_time.shift(hours=5, minutes=53), start_time.shift(hours=13.5)), 
             }
-    check_brevets(checkpoints)
+    check_brevets(checkpoints, dist, start_time)
 
 
